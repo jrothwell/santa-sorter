@@ -1,1 +1,3 @@
 instanceName: DEV
+
+languages: ["en", "fr", "de"]

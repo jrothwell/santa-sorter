@@ -9,7 +9,7 @@ import language.LanguageResource
 
 class SantaSorterApp : Application<SantaSorterConfig>() {
     override fun run(config: SantaSorterConfig, environment: Environment) {
-        val languageController = LanguageController()
+        val languageController = LanguageController(config.languages)
         environment.jersey().register(LanguageResource(languageController))
     }
 
