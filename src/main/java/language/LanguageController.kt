@@ -31,7 +31,10 @@ class LanguageController {
     fun getLanguages() : List<String> = this.languages
                .map(Language::englishName)
 
-    fun whatIs(word: String, otherLanguage: String): String? = this.languages
-            .find({ language -> language.englishName.equals(otherLanguage) })
-            ?.dictionary?.get(word)
+    fun define(word: String, otherLanguage: String): String? {
+        val language = this.languages
+                .find({ language -> language.englishName.equals(otherLanguage) })
+        return language
+                ?.dictionary?.get(word)
+    }
 }

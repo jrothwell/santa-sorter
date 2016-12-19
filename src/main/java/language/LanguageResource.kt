@@ -1,9 +1,7 @@
 package language
 
-import javax.ws.rs.GET
-import javax.ws.rs.Path
-import javax.ws.rs.PathParam
-import javax.ws.rs.Produces
+import java.util.Collections.singletonMap
+import javax.ws.rs.*
 import javax.ws.rs.core.MediaType.APPLICATION_JSON
 
 /**
@@ -17,10 +15,11 @@ class LanguageResource(val controller: LanguageController) {
     @GET
     fun getLanguages() : List<String> = controller.getLanguages()
 
-    @Path("{language}/{word}")
+    @Path("{language}/define/{word}")
     @GET
     fun whatIs(@PathParam("language") language: String,
-               @PathParam("word") word: String): String? {
-        return controller.whatIs(word, language)
-    }
+               @PathParam("word") word: String): Map<String, String> =
+            singletonMap("definition",
+                    controller.define(word, language) ?:
+                    throw NotFoundException("No definition for $word in $language"))
 }
