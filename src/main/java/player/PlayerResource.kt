@@ -51,7 +51,8 @@ class PlayerResource(private val playerController: PlayerController) {
                 .map {
                     mapOf("name" to it.id,
                             "score" to it.getScore(),
-                            "answeredParcels" to it.parcelsAnswered())
+                            "answeredParcels" to it.parcelsAnswered(),
+                            "parcelsRequested" to it.parcelsRequested())
                 }
     }
 }

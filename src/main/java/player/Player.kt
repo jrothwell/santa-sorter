@@ -11,13 +11,11 @@ class Player(val id: String) {
 
     fun getParcel(parcelId: UUID): Parcel? = this.parcels.find { parcel -> parcel.id == parcelId }
 
-    fun getScore(): Int {
-        return parcels.filter(Parcel::isCorrect).count() * 100 -
-                parcels.filter { parcel -> parcel.answered() && !parcel.isCorrect() }.count() * 150
-    }
+    fun getScore(): Int = parcels.filter(Parcel::isCorrect).count() * 100 -
+            parcels.filter { parcel -> parcel.answered() && !parcel.isCorrect() }.count() * 150
 
-    fun parcelsAnswered(): Int {
-        return parcels.filter(Parcel::answered)
-                .count()
-    }
+    fun parcelsAnswered(): Int = parcels.filter(Parcel::answered)
+            .count()
+
+    fun parcelsRequested(): Int = parcels.count()
 }
