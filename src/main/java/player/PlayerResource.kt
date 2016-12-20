@@ -50,7 +50,8 @@ class PlayerResource(private val playerController: PlayerController) {
                 .sortedWith(compareBy(Player::getScore))
                 .map {
                     mapOf("name" to it.id,
-                            "score" to it.getScore())
+                            "score" to it.getScore(),
+                            "answeredParcels" to it.parcelsAnswered())
                 }
     }
 }

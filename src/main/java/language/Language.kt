@@ -11,14 +11,16 @@ class Language(val name: String,
     private val dictionary = HashMap<String, String>()
 
     fun wordFor(englishWord: String): String? {
-        return dictionary.get(englishWord)
+        return dictionary.toList()
+                .find { it.second == englishWord.toLowerCase() }
+                ?.first
     }
 
     fun define(word: String): String? {
-        return dictionary.get(word)
+        return dictionary.get(word.toLowerCase())
     }
 
-    fun addDefinition(english: String, other: String) {
-        dictionary.put(english, other)
+    fun addDefinition(foreign: String, english: String) {
+        dictionary.put(foreign.toLowerCase(), english.toLowerCase())
     }
 }

@@ -15,4 +15,9 @@ class Player(val id: String) {
         return parcels.filter(Parcel::isCorrect).count() * 100 -
                 parcels.filter { parcel -> parcel.answered() && !parcel.isCorrect() }.count() * 150
     }
+
+    fun parcelsAnswered(): Int {
+        return parcels.filter(Parcel::answered)
+                .count()
+    }
 }
