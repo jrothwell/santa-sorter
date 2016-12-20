@@ -1,5 +1,6 @@
 package player
 
+import location.Coordinate
 import parcel.Parcel
 import parcel.ParcelController
 import java.util.*
@@ -21,7 +22,16 @@ class PlayerController(private val parcelController: ParcelController) {
 
     fun getNewParcelForPlayer(playerName: String): Parcel? {
         val parcel = this.parcelController.getParcel()
-        getPlayer(playerName)?.unsortedParcels?.add(parcel)
+        getPlayer(playerName).parcels.add(parcel)
         return parcel
+    }
+
+    fun getUnansweredParcels(playerName: String): List<Parcel> = getPlayer(playerName).parcels
+            .filter{parcel -> !parcel.answered()}
+
+    fun answerParcel(playerName: String, parcelId: UUID, destination: Coordinate) {
+        getPlayer(playerName)
+                .getParcel(parcelId)
+                ?.answer(destination)
     }
 }

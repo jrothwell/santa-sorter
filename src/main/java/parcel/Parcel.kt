@@ -19,6 +19,8 @@ class Parcel(val countryOfOrigin: Country,
         this.destinationCoordinate = answerCoordinate
     }
 
+    fun answered(): Boolean = this.destinationCoordinate != null
+
     fun isCorrect(): Boolean {
         return this.destinationCoordinate?.equals(this.destination.location) ?: false
     }

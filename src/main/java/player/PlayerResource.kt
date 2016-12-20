@@ -1,10 +1,11 @@
 package player
 
+import location.Coordinate
 import parcel.Parcel
-import javax.ws.rs.GET
-import javax.ws.rs.Path
-import javax.ws.rs.PathParam
-import javax.ws.rs.Produces
+import java.util.*
+import javax.validation.Valid
+import javax.validation.constraints.NotNull
+import javax.ws.rs.*
 import javax.ws.rs.core.MediaType
 
 /**
@@ -17,4 +18,12 @@ class PlayerResource(private val playerController: PlayerController) {
     @GET
     @Path("{player}/get-parcel")
     fun getParcel(@PathParam("player") player : String) : Parcel? = playerController.getNewParcelForPlayer(player)
+
+    @POST
+    @Path("{player}/parcels/{id}")
+    fun answerParcel(@PathParam("player") player: String,
+                     @PathParam("id") parcelId: UUID,
+                     @NotNull @Valid destination: Coordinate) {
+        playerController.answerParcel(player, parcelId, destination)
+    }
 }
