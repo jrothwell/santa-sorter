@@ -10,7 +10,13 @@ data class Country(val name: String,
 
 data class City(val name: String,
                 val location: Coordinate,
-                val radius: Int)
+                val country: Country)
 
-data class Coordinate(val x: Double,
-                      val y: Double)
+data class Coordinate(val latitude: degreesMins,
+                      val longitude: degreesMins)
+
+data class degreesMins(val degrees: Int,
+                       val minutes: Int,
+                       val direction: Direction)
+
+enum class Direction {NORTH, SOUTH, EAST, WEST}

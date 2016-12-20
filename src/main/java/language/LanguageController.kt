@@ -16,7 +16,7 @@ class LanguageController(private val availableLanguages: List<String>) {
                     .map({ line -> line.split(",") })
             val (englishName, foreignName) = lines[0]
             val lang = Language(name = foreignName, englishName = englishName)
-            lines.forEach { line -> lang.dictionary.put(line[1].toLowerCase(), line[0].toLowerCase()) }
+            lines.forEach { line -> lang.addDefinition(line[1].toLowerCase(), line[0].toLowerCase()) }
             languages.add(lang)
 
         }
@@ -25,11 +25,15 @@ class LanguageController(private val availableLanguages: List<String>) {
     fun getLanguages() : List<String> = this.languages
                .map(Language::englishName)
 
+    fun getLanguage(englishName: String): Language? = this.languages
+            .find { language -> language.englishName == englishName }
+
+
     fun define(word: String, otherLanguage: String): String? {
-        val language = this.languages
+        return this.languages
                 .find({ language ->
                     language.englishName.toLowerCase() == otherLanguage.toLowerCase() })
-        return language
-                ?.dictionary?.get(word.toLowerCase())
+                ?.define(word.toLowerCase())
     }
+
 }

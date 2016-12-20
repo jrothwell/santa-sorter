@@ -8,9 +8,17 @@ import java.util.*
 
 class Language(val name: String,
                val englishName: String) {
-    val dictionary = HashMap<String, String>()
+    private val dictionary = HashMap<String, String>()
 
     fun wordFor(englishWord: String): String? {
         return dictionary.get(englishWord)
+    }
+
+    fun define(word: String): String? {
+        return dictionary.get(word)
+    }
+
+    fun addDefinition(english: String, other: String) {
+        dictionary.put(english, other)
     }
 }

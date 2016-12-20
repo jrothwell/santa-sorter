@@ -18,8 +18,10 @@ class LanguageResource(val controller: LanguageController) {
     @Path("{language}/define/{word}")
     @GET
     fun whatIs(@PathParam("language") language: String,
-               @PathParam("word") word: String): Map<String, String> =
-            singletonMap("definition",
-                    controller.define(word, language) ?:
-                    throw NotFoundException("No definition for $word in $language"))
+               @PathParam("word") word: String): Map<String, String> {
+        Thread.sleep(1000)
+        return singletonMap("definition",
+                controller.define(word, language) ?:
+                        throw NotFoundException("No definition for $word in $language"))
+    }
 }

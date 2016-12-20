@@ -7,5 +7,8 @@ import java.util.*
  * Created by jrothwell on 19/12/2016.
  */
 class Player(val id: String) {
-    val parcelQueue = PriorityQueue<Parcel>()
+    val unsortedParcels = HashSet<Parcel>()
+    val sortedParcels = HashSet<Parcel>()
+
+
 }
