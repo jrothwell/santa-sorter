@@ -34,4 +34,6 @@ class PlayerController(private val parcelController: ParcelController) {
                 .getParcel(parcelId)
                 ?.answer(destination)
     }
+
+    fun getPlayers(): ArrayList<Player> = this.players
 }
