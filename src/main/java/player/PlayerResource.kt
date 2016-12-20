@@ -24,6 +24,6 @@ class PlayerResource(private val playerController: PlayerController) {
     fun answerParcel(@PathParam("player") player: String,
                      @PathParam("id") parcelId: UUID,
                      @NotNull @Valid destination: Coordinate) {
-        playerController.answerParcel(player, parcelId, destination)
+        playerController.answerParcel(player, parcelId, destination) // TODO FIX ME
     }
 }
