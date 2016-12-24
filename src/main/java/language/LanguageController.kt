@@ -7,7 +7,7 @@ import java.util.*
 /**
  * Created by jrothwell on 19/12/2016.
  */
-class LanguageController(private val availableLanguages: List<String>) {
+class LanguageController(availableLanguages: List<String>) {
 
     val languages = ArrayList<Language>()
     init {
@@ -29,11 +29,9 @@ class LanguageController(private val availableLanguages: List<String>) {
             .find { language -> language.englishName == englishName }
 
 
-    fun define(word: String, otherLanguage: String): String? {
-        return this.languages
-                .find({ language ->
-                    language.englishName.toLowerCase() == otherLanguage.toLowerCase() })
-                ?.define(word.toLowerCase())
-    }
+    fun define(word: String, otherLanguage: String): String? =
+            this.languages
+                .find({it.englishName.toLowerCase() == otherLanguage.toLowerCase() })
+               ?.define(word.toLowerCase())
 
 }
