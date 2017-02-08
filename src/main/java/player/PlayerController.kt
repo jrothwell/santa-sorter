@@ -33,4 +33,6 @@ class PlayerController(private val parcelController: ParcelController) {
     fun getScore(playerName: String) : Int = parcelController.getTotalScore(playerName)
 
     fun getPlayers(): ArrayList<Player> = this.players
+    fun  getAnsweredParcels(playerId: String): Int = parcelController.getAnsweredParcelsCount(playerId)
+    fun  getRequestedParcels(playerId: String): Int = parcelController.getRequestedParcelsCount(playerId)
 }

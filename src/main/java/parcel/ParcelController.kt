@@ -41,20 +41,36 @@ class ParcelController(private val locationController: LocationController,
         val parcel = mongoDatabase.getCollection<Parcel>().findOne(filter) ?: throw Error("Couldn't find parcel!")
         parcel.answer(answerCoordinate = destination)
         answersCollection
-                     .insertOne(Answer(parcelId = parcelId, destination = destination, correct = parcel.isCorrect()))
+                     .insertOne(Answer(parcelId = parcelId,
+                             destination = destination,
+                             correct = parcel.isCorrect(),
+                             playerId = playerId))
     }
 
     fun getTotalScore(playerId: String) : Int {
         val correctAnswers = mongoDatabase.getCollection<Answer>()
-                .find("{correct: true}")
+                .find("{playerId: \"$playerId\", correct: true}")
                 .count()
 
         val incorrectAnswers = mongoDatabase.getCollection<Answer>()
-                .find("{correct: false}")
+                .find("{playerId: \"$playerId\", correct: false}")
                 .count()
 
         return correctAnswers * 100 - incorrectAnswers * 150
     }
+
+    fun getRequestedParcelsCount(playerId: String) : Int {
+        return mongoDatabase.getCollection<Parcel>()
+                .find("{playerId: \"$playerId\"}")
+                .count()
+    }
+
+    fun getAnsweredParcelsCount(playerId: String) : Int {
+        return mongoDatabase.getCollection<Answer>()
+                .find("{playerId: \"$playerId\"}")
+                .count()
+    }
+
 
     fun randomName(): String {
         val names = listOf<String>("Amelia", "Olivia", "Emily", "Poppy", "Ava",
