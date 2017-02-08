@@ -9,7 +9,7 @@ import java.util.*
 class Player(val id: String) {
     val parcels = HashSet<Parcel>()
 
-    fun getParcel(parcelId: UUID): Parcel? = this.parcels.find { parcel -> parcel.id == parcelId }
+    fun getParcel(parcelId: String): Parcel? = this.parcels.find { parcel -> parcel.id == parcelId }
 
     fun getScore(): Int = parcels.filter(Parcel::isCorrect).count() * 100 -
             parcels.filter { parcel -> parcel.answered() && !parcel.isCorrect() }.count() * 150

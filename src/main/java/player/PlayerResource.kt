@@ -35,7 +35,7 @@ class PlayerResource(private val playerController: PlayerController) {
                 Direction.valueOf((longitude?.get("direction") as? String)!!))
         val coord = Coordinate(latitudeCoordinate, longitudeCoordinate)
 
-        playerController.answerParcel(player, UUID.fromString(parcelId), coord) // TODO FIX ME
+        playerController.answerParcel(player, parcelId, coord) // TODO FIX ME
     }
 
     @GET

@@ -2,13 +2,9 @@ package language
 
 import java.util.*
 
-/**
- * Created by jrothwell on 19/12/2016.
- */
-
 class Language(val name: String,
                val englishName: String) {
-    private val dictionary: HashMap<String, String>
+    private val dictionary: HashMap<String, String> // key(other-language) -> value(english)
         get() = HashMap<String, String>()
 
     fun wordFor(englishWord: String): String? = dictionary.toList()

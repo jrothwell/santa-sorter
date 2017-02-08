@@ -12,7 +12,8 @@ import java.util.*
 class Parcel(val countryOfOrigin: Country,
              private val destination: City,
              val label: String,
-             val id: UUID) {
+             val id: String,
+             val playerId: String) {
     private var destinationCoordinate: Coordinate? = null
 
     fun answer(answerCoordinate: Coordinate) {
