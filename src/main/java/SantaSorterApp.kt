@@ -9,14 +9,11 @@ import parcel.ParcelController
 import player.PlayerController
 import player.PlayerResource
 
-/**
- * Created by jrothwell on 18/12/2016.
- */
-
 class SantaSorterApp : Application<SantaSorterConfig>() {
     override fun run(config: SantaSorterConfig, environment: Environment) {
         val databaseClient = KMongo.createClient()
         val database = databaseClient.getDatabase("santa")
+        database.drop() // delete everything - start fresh every time we run the server
 
         val languageController = LanguageController(config.languages)
         val locationController = LocationController(languageController)
