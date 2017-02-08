@@ -1,6 +1,5 @@
 package parcel
 
-import com.mongodb.MongoClient
 import com.mongodb.client.MongoDatabase
 import location.LocationController
 import org.litote.kmongo.getCollection
@@ -20,7 +19,7 @@ class ParcelController(private val locationController: LocationController,
         val destinationCityString = countryOfOrigin.language.wordFor(randomCity.name)
         val destinationCountryString = countryOfOrigin.language.wordFor(randomCity.country.name)
 
-        val newParcel = Parcel(countryOfOrigin = countryOfOrigin,
+        val newParcel = Parcel(countryOfOriginName = countryOfOrigin.name,
                 destination = randomCity,
                 label = "${randomName()}\n$destinationCityString\n$destinationCountryString".toUpperCase(),
                 id = UUID.randomUUID().toString(),
