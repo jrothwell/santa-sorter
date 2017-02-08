@@ -3,8 +3,6 @@ package player
 import location.Coordinate
 import location.Direction
 import location.degreesMins
-import parcel.Parcel
-import java.util.*
 import javax.ws.rs.*
 import javax.ws.rs.core.MediaType
 import kotlin.comparisons.compareBy
@@ -18,7 +16,16 @@ class PlayerResource(private val playerController: PlayerController) {
 
     @GET
     @Path("{player}/get-parcel")
-    fun getParcel(@PathParam("player") player : String) : Parcel? = playerController.getNewParcelForPlayer(player)
+    fun getParcel(@PathParam("player") player : String) : Map<String, *> {
+        val parcel = playerController.getNewParcelForPlayer(player)
+        return mapOf(
+                "id" to parcel.id,
+                "playerId" to parcel.playerId,
+                "label" to parcel.label,
+                "countryOfOrigin" to parcel.countryOfOriginName
+        )
+
+    }
 
     @POST
     @Path("{player}/parcels/{id}")
@@ -41,7 +48,7 @@ class PlayerResource(private val playerController: PlayerController) {
     @GET
     @Path("{player}/score")
     fun getScore(@PathParam("player") player: String): Int {
-        return playerController.getPlayer(player).getScore()
+        return playerController.getScore(player)
     }
 
     @GET
@@ -50,7 +57,7 @@ class PlayerResource(private val playerController: PlayerController) {
                 .sortedWith(compareBy(Player::getScore))
                 .map {
                     mapOf("name" to it.id,
-                            "score" to it.getScore(),
+                            "score" to playerController.getScore(it.id),
                             "answeredParcels" to it.parcelsAnswered(),
                             "parcelsRequested" to it.parcelsRequested())
                 }

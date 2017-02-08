@@ -20,20 +20,17 @@ class PlayerController(private val parcelController: ParcelController) {
         return playerMaybe
     }
 
-    fun getNewParcelForPlayer(playerName: String): Parcel? {
-        val parcel = this.parcelController.parcelForPlayer(getPlayer(playerName))
-        getPlayer(playerName).parcels.add(parcel)
-        return parcel
+    fun getNewParcelForPlayer(playerName: String): Parcel {
+        return this.parcelController.parcelForPlayer(getPlayer(playerName))
     }
-
-    fun getUnansweredParcels(playerName: String): List<Parcel> = getPlayer(playerName).parcels
-            .filter{parcel -> !parcel.answered()}
 
     fun answerParcel(playerName: String, parcelId: String, destination: Coordinate) {
-        getPlayer(playerName)
-                .getParcel(parcelId)
-                ?.answer(destination)
+        parcelController.answerParcel(playerId = playerName,
+                parcelId = parcelId,
+                destination = destination)
     }
+
+    fun getScore(playerName: String) : Int = parcelController.getTotalScore(playerName)
 
     fun getPlayers(): ArrayList<Player> = this.players
 }

@@ -8,7 +8,7 @@ import location.Coordinate
  */
 
 class Parcel(val countryOfOriginName: String,
-             private val destination: City,
+             val destination: City,
              val label: String,
              val id: String,
              val playerId: String) {

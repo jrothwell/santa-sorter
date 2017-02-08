@@ -1,7 +1,10 @@
 package parcel
 
 import com.mongodb.client.MongoDatabase
+import location.Coordinate
 import location.LocationController
+import org.litote.kmongo.find
+import org.litote.kmongo.findOne
 import org.litote.kmongo.getCollection
 import player.Player
 import java.security.SecureRandom
@@ -28,6 +31,29 @@ class ParcelController(private val locationController: LocationController,
         mongoDatabase.getCollection<Parcel>().insertOne(newParcel)
         println(mongoDatabase.getCollection<Parcel>().count())
         return newParcel;
+    }
+
+    fun answerParcel(playerId: String, parcelId: String, destination: Coordinate) {
+        val answersCollection = mongoDatabase.getCollection<Answer>()
+        if(answersCollection.findOne("{parcelId: \"$parcelId\"}") != null) // we already have an answer
+            return
+        val filter = "{id: \"$parcelId\", playerId: \"$playerId\"}"
+        val parcel = mongoDatabase.getCollection<Parcel>().findOne(filter) ?: throw Error("Couldn't find parcel!")
+        parcel.answer(answerCoordinate = destination)
+        answersCollection
+                     .insertOne(Answer(parcelId = parcelId, destination = destination, correct = parcel.isCorrect()))
+    }
+
+    fun getTotalScore(playerId: String) : Int {
+        val correctAnswers = mongoDatabase.getCollection<Answer>()
+                .find("{correct: true}")
+                .count()
+
+        val incorrectAnswers = mongoDatabase.getCollection<Answer>()
+                .find("{correct: false}")
+                .count()
+
+        return correctAnswers * 100 - incorrectAnswers * 150
     }
 
     fun randomName(): String {
