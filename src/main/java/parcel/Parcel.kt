@@ -20,9 +20,7 @@ class Parcel(val countryOfOriginName: String,
 
     fun answered(): Boolean = this.destinationCoordinate != null
 
-    fun isCorrect(): Boolean {
-        return this.destinationCoordinate?.equals(this.destination.location) ?: false
-    }
+    fun isCorrect(): Boolean = this.destinationCoordinate?.equals(this.destination.location) ?: false
 
 }
 
